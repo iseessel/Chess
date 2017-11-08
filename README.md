@@ -3,6 +3,8 @@
 ## Overview
 Terminal Chess is a terminal version of the popular game chess, coded in Ruby.
 
+  ![chess-gif](code-screenshots/chess.gif)
+  
 ## Features
 - User friendly color-highlighting of possible moves.
 - Move pieces based on the established rules of the game.

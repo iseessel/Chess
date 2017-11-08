@@ -29,7 +29,6 @@ class King < Piece
     diffs = []
     diffs << [0, -2] if able_to_left_castle
     diffs << [0, 2] if able_to_right_castle
-
     diffs
   end
 
