@@ -18,8 +18,6 @@ class King < Piece
     [ 1, -1],
     [ 1,  0],
     [ 1,  1],
-    [0, -2],
-    [0, 2]
   ]
     if castling
       moves.concat(castling_diffs)
