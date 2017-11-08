@@ -21,9 +21,8 @@ class King < Piece
     [0, -2],
     [0, 2]
   ]
-    puts castling
     if castling
-      puts moves.concat(castling_diffs)
+      moves.concat(castling_diffs)
     else
       moves
     end

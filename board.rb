@@ -83,20 +83,21 @@ class Board
 
   def move_piece(start, finish, color)
     piece = self[start]
+    valid_moves = piece.valid_moves
+    raise InvalidMoveError unless valid_moves.include?(finish) &&
+      piece.color == color && start != finish
 
     if piece.instance_of? King
       if finish[1] - start[1] == 2
         piece.castle(:right)
+        return
       elsif finish[1] - start[1] == -2
         piece.castle(:left)
+        return
       end
-
-    else
-      valid_moves = piece.valid_moves
-      raise InvalidMoveError unless valid_moves.include?(finish) &&
-        piece.color == color && start != finish
-      move_piece!(start, finish)
     end
+
+    move_piece!(start, finish)
 
   end
 
