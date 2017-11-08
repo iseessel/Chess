@@ -5,7 +5,6 @@ class King < Piece
 
   def initialize(symbol)
     super(symbol)
-    @already_moved = false
   end
 
   def move_diffs(castling = true)
@@ -28,11 +27,8 @@ class King < Piece
 
   def castling_diffs
     diffs = []
-    if able_to_left_castle
-      diffs << [0, -2]
-    else able_to_right_castle
-      diffs << [0, 2]
-    end
+    diffs << [0, -2] if able_to_left_castle
+    diffs << [0, 2] if able_to_right_castle
 
     diffs
   end
@@ -69,6 +65,8 @@ class King < Piece
       !in_line_of_attack?([0, 2]) && !right_rook.already_moved
   end
 
+  #Instead of finding every single one of the opponents pieces look for
+  # those that are in line with the king.
   def in_line_of_attack?(diffs)
     opponents_color = @color == :white ? :black : :white
     pieces = @board.find_opponents_pieces(opponents_color)

@@ -1,6 +1,6 @@
 module Steppable
 
-  def moves(castling = true) # Will take in an array of deltas & add deltas to current pos checking if valid
+  def moves(castling = true)
 
     deltas = self.move_diffs(castling)
     moves = []

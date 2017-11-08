@@ -83,6 +83,7 @@ class Board
 
   def move_piece(start, finish, color)
     piece = self[start]
+    piece.already_moved = true
     valid_moves = piece.valid_moves
     raise InvalidMoveError unless valid_moves.include?(finish) &&
       piece.color == color && start != finish
@@ -135,14 +136,15 @@ class Board
 
     #NB: We must tell the moves method that we do not want to check the opponent's
     #castling moves, otherwise we will infinitely iterate.
-
     opponent_pieces.any? do |piece|
         piece.moves(false).include?(king_pos)
     end
   end
 
   def check_mate?(color)
-    in_check?(color) && find_own_pieces(color).all? { |piece| piece.valid_moves.empty? }
+    in_check?(color) && find_own_pieces(color).all? do |piece|
+      piece.valid_moves.empty?
+    end
   end
 
   def find_own_pieces(color)

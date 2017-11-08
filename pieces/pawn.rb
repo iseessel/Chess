@@ -27,7 +27,6 @@ class Pawn < Piece
 
     moves = []
     deltas.each do |(dx, dy)|
-      #
       x, y = self.position
       move = [x + dx, y + dy]
 
@@ -43,7 +42,6 @@ class Pawn < Piece
   end
 
   def valid_pawn_attack?(move)
-      #
       @board.valid_move?(@position, move) &&
       @board[move].color  &&    # check if empty not check color of null piece
       @board[move].color != @color #check if opponent. Helper mycolor

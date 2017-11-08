@@ -3,10 +3,10 @@ require_relative 'steppable'
 require 'singleton'
 
 class Piece
-  attr_accessor :position, :board, :color, :symbol
-
+  attr_accessor :position, :board, :color, :symbol, :already_moved
   def initialize(symbol)
     @symbol = symbol
+    @already_moved = false
   end
 
   def to_s

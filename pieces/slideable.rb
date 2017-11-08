@@ -18,17 +18,13 @@ module Slideable
   def find_moves(deltas)
     moves = []
     deltas.each do |(dx, dy)|
-      # current_pos = self.position
       x, y = self.position
       next_move = [x + dx, y + dy]
       until !self.board.valid_move?(self.position, next_move)
-        #
         moves << next_move
         break if opponent?(next_move)
-        # current_pos = next_move
         x, y = next_move
         next_move = [x + dx, y + dy]
-        #
       end
     end
 
