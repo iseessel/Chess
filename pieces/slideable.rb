@@ -4,9 +4,9 @@ module Slideable
   DIAGONAL = [[1,1],[1,-1],[-1,-1],[-1,1]]
   STRAIGHT = [[1,0], [-1,0], [0,1], [0,-1]]
 
-  def moves
+  def moves(castling = true)
     direction = self.move_dirs
-    # debugger
+
     moves = []
 
     moves += find_moves(DIAGONAL) if direction.include?(:diagonal)
@@ -22,13 +22,13 @@ module Slideable
       x, y = self.position
       next_move = [x + dx, y + dy]
       until !self.board.valid_move?(self.position, next_move)
-        # debugger
+        #
         moves << next_move
         break if opponent?(next_move)
         # current_pos = next_move
         x, y = next_move
         next_move = [x + dx, y + dy]
-        # debugger
+        #
       end
     end
 

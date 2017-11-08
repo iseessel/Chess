@@ -14,6 +14,7 @@ class Game
 
   def play
     until @board.check_mate?(@current_player.color)
+      # begin
         @display.current_color = @current_player.color
         start_pos, end_pos = @current_player.get_input
         @board.move_piece(start_pos, end_pos, @current_player.color)

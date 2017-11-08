@@ -3,7 +3,7 @@ require 'byebug'
 
 class Pawn < Piece
 
-  def moves
+  def moves(castling)
     forward_moves + attacking_moves
   end
 
@@ -27,7 +27,7 @@ class Pawn < Piece
 
     moves = []
     deltas.each do |(dx, dy)|
-      # debugger
+      #
       x, y = self.position
       move = [x + dx, y + dy]
 
@@ -43,7 +43,7 @@ class Pawn < Piece
   end
 
   def valid_pawn_attack?(move)
-      # debugger
+      #
       @board.valid_move?(@position, move) &&
       @board[move].color  &&    # check if empty not check color of null piece
       @board[move].color != @color #check if opponent. Helper mycolor

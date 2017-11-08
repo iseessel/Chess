@@ -84,10 +84,20 @@ class Board
   def move_piece(start, finish, color)
     piece = self[start]
 
-    valid_moves = piece.valid_moves
-    raise InvalidMoveError unless valid_moves.include?(finish) &&
-      piece.color == color
-    move_piece!(start, finish)
+    if piece.instance_of? King
+      if finish[1] - start[1] == 2
+        piece.castle(:right)
+      elsif finish[1] - start[1] == -2
+        piece.castle(:left)
+      end
+
+    else
+      valid_moves = piece.valid_moves
+      raise InvalidMoveError unless valid_moves.include?(finish) &&
+        piece.color == color && start != finish
+      move_piece!(start, finish)
+    end
+
   end
 
   def move_piece!(start, finish)
@@ -122,7 +132,12 @@ class Board
     king_pos = find_king_pos(color)
     opponent_pieces = find_opponents_pieces(color)
 
-    opponent_pieces.any? { |piece| piece.moves.include?(king_pos) }
+    #NB: We must tell the moves method that we do not want to check the opponent's
+    #castling moves, otherwise we will infinitely iterate.
+
+    opponent_pieces.any? do |piece|
+        piece.moves(false).include?(king_pos)
+    end
   end
 
   def check_mate?(color)

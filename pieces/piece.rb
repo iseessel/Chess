@@ -13,8 +13,8 @@ class Piece
     @symbol.encode('utf-8')
   end
 
-  def valid_moves
-    moves = self.moves
+  def valid_moves(castling = true)
+    moves = self.moves(castling)
     valid_moves = []
 
     moves.each do |move|

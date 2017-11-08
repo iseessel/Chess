@@ -1,7 +1,8 @@
 module Steppable
 
-  def moves # Will take in an array of deltas & add deltas to current pos checking if valid
-    deltas = self.move_diffs
+  def moves(castling = true) # Will take in an array of deltas & add deltas to current pos checking if valid
+
+    deltas = self.move_diffs(castling)
     moves = []
 
     deltas.each do |(dx, dy)|
