@@ -31,7 +31,6 @@ class Board
 
   def move_piece(start, finish, color)
     piece = self[start]
-    piece.already_moved = true
     valid_moves = piece.valid_moves
     raise InvalidMoveError unless valid_moves.include?(finish) &&
       piece.color == color && start != finish
@@ -47,7 +46,7 @@ class Board
     end
 
     move_piece!(start, finish)
-
+    piece.already_moved = true
   end
 
   def move_piece!(start, finish)
@@ -76,12 +75,14 @@ class Board
 
   def in_check?(color)
     king_pos = find_king_pos(color)
-    opponent_pieces = find_opponents_pieces(color)
+    opponent_pieces = find_opponents_pieces(color).reject do |piece|
+      piece.is_a?(King)
+    end
 
     #NB: We must tell the moves method that we do not want to check the opponent's
     #castling moves, otherwise we will infinitely iterate.
     opponent_pieces.any? do |piece|
-        piece.moves(false).include?(king_pos)
+        piece.moves.include?(king_pos)
     end
   end
 
@@ -136,7 +137,7 @@ class Board
   end
 
   private
-  
+
   def populate
     first_row = [[Rook.new("\u265C"), Knight.new("\u265E"), Bishop.new("\u265D"),
     Queen.new("\u265B"), King.new("\u265A"), Bishop.new("\u265D"),

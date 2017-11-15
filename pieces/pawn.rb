@@ -3,7 +3,7 @@ require 'byebug'
 
 class Pawn < Piece
 
-  def moves(castling)
+  def moves
     forward_moves + attacking_moves
   end
 
@@ -39,7 +39,8 @@ class Pawn < Piece
     #forward two.
     if(moves.include?([-2, 0]) && !moves.include?([-1, 0]) ||
       moves.include?([2, 0]) && !moves.include?([1, 0]))
-      moves.delete([1, 0], [-1, 0])
+      moves.delete([1, 0])
+      moves.delete([-1, 0])
     end
 
     moves

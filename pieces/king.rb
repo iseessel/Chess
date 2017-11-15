@@ -7,7 +7,7 @@ class King < Piece
     super(symbol)
   end
 
-  def move_diffs(castling = true)
+  def move_diffs()
     moves = [
     [-1, -1],
     [-1,  0],
@@ -18,18 +18,8 @@ class King < Piece
     [ 1,  0],
     [ 1,  1],
   ]
-    if castling
-      moves.concat(castling_diffs)
-    else
-      moves
-    end
-  end
-
-  def castling_diffs
-    diffs = []
-    diffs << [0, -2] if able_to_left_castle
-    diffs << [0, 2] if able_to_right_castle
-    diffs
+    moves.concat(castling_diffs)
+    moves
   end
 
   def castle(direction)
@@ -49,28 +39,43 @@ class King < Piece
     end
   end
 
+
+  private
+
+  def castling_diffs
+    diffs = []
+    diffs << [0, -2] if able_to_left_castle
+    diffs << [0, 2] if able_to_right_castle
+    diffs
+  end
+
   #NB: These methods do not check if the king is going through pieces.
     #This will be taken care of through the valid_moves method.
 
   def able_to_left_castle
+    debugger
     left_rook = @board[[@position[0], @position[1] - 4]]
-    !@board.in_check?(@color) && !@already_moved &&
-      !in_line_of_attack?([0, 2]) && !left_rook.already_moved
+    !@already_moved && !in_line_of_attack?([0, 2]) &&
+      !left_rook.already_moved
   end
 
   def able_to_right_castle
+    debugger
     right_rook = @board[[@position[0], @position[1] + 3]]
-    !@board.in_check?(@color) && !@already_moved &&
-      !in_line_of_attack?([0, 2]) && !right_rook.already_moved
+    !@already_moved && !in_line_of_attack?([0, 2]) &&
+      !right_rook.already_moved
   end
 
   #Instead of finding every single one of the opponents pieces look for
   # those that are in line with the king.
   def in_line_of_attack?(diffs)
     opponents_color = @color == :white ? :black : :white
-    pieces = @board.find_opponents_pieces(opponents_color)
+    pieces = @board.find_opponents_pieces(opponents_color).reject do |piece|
+      piece.is_a?(King)
+    end
+
     pieces.any? do |piece|
-      piece.valid_moves(false).any? { |(y, x)| y == @position[0] &&
+      piece.valid_moves.any? { |(y, x)| y == @position[0] &&
         !x.between?(@position[1], @position[1] + diffs[1])}
     end
   end

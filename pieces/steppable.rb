@@ -2,7 +2,7 @@ module Steppable
 
   def moves(castling = true)
 
-    deltas = self.move_diffs(castling)
+    deltas = self.move_diffs
     moves = []
 
     deltas.each do |(dx, dy)|

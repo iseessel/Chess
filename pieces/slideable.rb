@@ -4,7 +4,7 @@ module Slideable
   DIAGONAL = [[1,1],[1,-1],[-1,-1],[-1,1]]
   STRAIGHT = [[1,0], [-1,0], [0,1], [0,-1]]
 
-  def moves(castling = true)
+  def moves
     direction = self.move_dirs
 
     moves = []
