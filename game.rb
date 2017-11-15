@@ -24,7 +24,7 @@ class Game
       @board.move_piece(start_pos, end_pos, @current_player.color)
       @display.selected_pos = nil
       switch_players
-      rescue InvalidMoveError
+      rescue
         print "Invalid Move"
         @display.selected_pos = nil
         sleep(1)
