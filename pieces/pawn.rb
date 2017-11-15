@@ -37,7 +37,8 @@ class Pawn < Piece
 
     #makes sure that if a pawn moves forward one space, that he cannot move
     #forward two.
-    if(moves.include?([-2, 0]) || moves.include?([2, 0]))
+    if(moves.include?([-2, 0]) && !moves.include?([-1, 0]) ||
+      moves.include?([2, 0]) && !moves.include?([1, 0]))
       moves.delete([1, 0], [-1, 0])
     end
 

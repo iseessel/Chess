@@ -25,63 +25,8 @@ class Board
     setup
   end
 
-  def setup
-    @grid = populate
-    set_up_pieces
-    @grid
-  end
-
-  def self.pos_to_coord(string)
-    string.reverse.chars.map do |ch|
-      ch.between?("a","z") ? COORDS[ch] : 8 - (ch.to_i)
-    end
-  end
-
   def null_piece?(pos)
     !self[pos].color
-  end
-
-  def populate
-    first_row = [[Rook.new("\u265C"), Knight.new("\u265E"), Bishop.new("\u265D"),
-    Queen.new("\u265B"), King.new("\u265A"), Bishop.new("\u265D"),
-    Knight.new("\u265E"), Rook.new("\u265C")]]
-
-    second_row = [Array.new(8) { BlackPawn.new("\u265F") }]
-
-    third_through_sixth_row = Array.new(4) do
-      Array.new(8) { NullPiece.instance }
-    end
-
-    seventh_row = [Array.new(8) { WhitePawn.new("\u2659") }]
-
-    last_row = [[Rook.new("\u2656"), Knight.new("\u2658"), Bishop.new("\u2657"),
-    Queen.new("\u2655"), King.new("\u2654"), Bishop.new("\u2657"),
-    Knight.new("\u2658"), Rook.new("\u2656")]]
-
-    @grid = first_row + second_row + third_through_sixth_row +
-    seventh_row + last_row
-  end
-
-  def set_up_pieces
-    (0..7).each do |i|
-      (0..7).each do |j|
-        pos = [i, j]
-        self[pos].position = pos
-        self[pos].board = self
-        if i.between?(0,1)
-          self[pos].color = :black
-        elsif i.between?(6,7)
-          self[pos].color = :white
-        end
-      end
-    end
-  end
-
-  def user_move(start, finish)
-    start , finish = Board.pos_to_coord(start), Board.pos_to_coord(finish)
-    self[finish] = self[start]
-    self[start] = NullPiece.instance
-    self[finish].position = finish
   end
 
   def move_piece(start, finish, color)
@@ -125,10 +70,6 @@ class Board
     pos.all? { |coord| coord.between?(0, 7) }
   end
 
-  def own_piece?(start_pos, end_pos)
-    self[start_pos].color == self[end_pos].color
-  end
-
   def valid_move?(start_pos, end_pos)
     in_bounds?(end_pos) && !own_piece?(start_pos, end_pos)
   end
@@ -152,10 +93,6 @@ class Board
 
   def find_own_pieces(color)
     @grid.flatten.select { |piece| piece.color && piece.color == color }
-  end
-
-  def find_king_pos(color)
-    @grid.flatten.find { |piece| piece.is_a?(King) && piece.color == color }.position
   end
 
   def find_opponents_pieces(color)
@@ -188,6 +125,72 @@ class Board
 
   def length
     @grid.length
+  end
+
+  #This allows users to enter traditional chess notation.
+  def user_move(start, finish)
+    start , finish = Board.pos_to_coord(start), Board.pos_to_coord(finish)
+    self[finish] = self[start]
+    self[start] = NullPiece.instance
+    self[finish].position = finish
+  end
+
+  private
+  
+  def populate
+    first_row = [[Rook.new("\u265C"), Knight.new("\u265E"), Bishop.new("\u265D"),
+    Queen.new("\u265B"), King.new("\u265A"), Bishop.new("\u265D"),
+    Knight.new("\u265E"), Rook.new("\u265C")]]
+
+    second_row = [Array.new(8) { BlackPawn.new("\u265F") }]
+
+    third_through_sixth_row = Array.new(4) do
+      Array.new(8) { NullPiece.instance }
+    end
+
+    seventh_row = [Array.new(8) { WhitePawn.new("\u2659") }]
+
+    last_row = [[Rook.new("\u2656"), Knight.new("\u2658"), Bishop.new("\u2657"),
+    Queen.new("\u2655"), King.new("\u2654"), Bishop.new("\u2657"),
+    Knight.new("\u2658"), Rook.new("\u2656")]]
+
+    @grid = first_row + second_row + third_through_sixth_row +
+    seventh_row + last_row
+  end
+
+  def setup
+    @grid = populate
+    set_up_pieces
+    @grid
+  end
+
+  def set_up_pieces
+    (0..7).each do |i|
+      (0..7).each do |j|
+        pos = [i, j]
+        self[pos].position = pos
+        self[pos].board = self
+        if i.between?(0,1)
+          self[pos].color = :black
+        elsif i.between?(6,7)
+          self[pos].color = :white
+        end
+      end
+    end
+  end
+
+  def find_king_pos(color)
+    @grid.flatten.find { |piece| piece.is_a?(King) && piece.color == color }.position
+  end
+
+  def own_piece?(start_pos, end_pos)
+    self[start_pos].color == self[end_pos].color
+  end
+
+  def self.pos_to_coord(string)
+    string.reverse.chars.map do |ch|
+      ch.between?("a","z") ? COORDS[ch] : 8 - (ch.to_i)
+    end
   end
 
 end
