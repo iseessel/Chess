@@ -17,7 +17,7 @@ Terminal Chess is a terminal version of the popular game chess, coded in Ruby.
 - Move pieces based on the established rules of the game.
 - Capture pieces when appropriate.
 - Check and checkmate capabilities.
-- Implementation of special moves, such as castling, en passant, and pawn promotion.
+- Implementation of special moves, such as castling.
 
 ## Object Orientatin Highlights
 
