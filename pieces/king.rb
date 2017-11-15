@@ -53,7 +53,6 @@ class King < Piece
     #This will be taken care of through the valid_moves method.
 
   def able_to_left_castle
-
     left_rook = @board[[@position[0], @position[1] - 4]]
     !@already_moved && !in_line_of_attack?([0, 2]) &&
       !left_rook.already_moved
@@ -75,8 +74,10 @@ class King < Piece
     end
 
     pieces.any? do |piece|
-      piece.valid_moves.any? { |(y, x)| y == @position[0] &&
-        !x.between?(@position[1], @position[1] + diffs[1])}
+      piece.valid_moves.any? do |(y, x)|
+        y == @position[0] &&
+        !x.between?(@position[1], @position[1] + diffs[1])
+      end
     end
   end
 
