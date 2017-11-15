@@ -31,11 +31,14 @@ class Board
     @grid
   end
 
-  # private
   def self.pos_to_coord(string)
     string.reverse.chars.map do |ch|
       ch.between?("a","z") ? COORDS[ch] : 8 - (ch.to_i)
     end
+  end
+
+  def null_piece?(pos)
+    !self[pos].color
   end
 
   def populate

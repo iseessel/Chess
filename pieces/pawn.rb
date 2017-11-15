@@ -34,16 +34,23 @@ class Pawn < Piece
         moves << move
       end
     end
+
+    #makes sure that if a pawn moves forward one space, that he cannot move
+    #forward two.
+    if(moves.include?([-2, 0]) || moves.include?([2, 0]))
+      moves.delete([1, 0], [-1, 0])
+    end
+
     moves
   end
 
   def valid_pawn_step?(move)
-    @board.valid_move?(@position, move) && !@board[move].color # don't check if color is nil check method empty
+    @board.valid_move?(@position, move) && @board.null_piece?(move) # don't check if color is nil check method empty
   end
 
   def valid_pawn_attack?(move)
       @board.valid_move?(@position, move) &&
-      @board[move].color  &&    # check if empty not check color of null piece
+      !@board.null_piece?(move)  &&  # check if empty not check color of null piece
       @board[move].color != @color #check if opponent. Helper mycolor
   end
 

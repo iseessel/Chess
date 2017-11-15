@@ -14,16 +14,18 @@ class Game
 
   def play
     until @board.check_mate?(@current_player.color)
-      # begin
-        @display.current_color = @current_player.color
-        start_pos, end_pos = @current_player.get_input
-        @board.move_piece(start_pos, end_pos, @current_player.color)
+      begin
+      @display.current_color = @current_player.color
+      start_pos, end_pos = @current_player.get_input
+      @board.move_piece(start_pos, end_pos, @current_player.color)
+      @display.selected_pos = nil
+      switch_players
+      rescue
+        print "Invalid Move"
         @display.selected_pos = nil
-        switch_players
-      # rescue
-      #   puts "Invalid Move"
-      #   retry
-      # end
+        sleep(1)
+        retry
+      end
     end
   end
 
