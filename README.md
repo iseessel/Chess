@@ -4,7 +4,14 @@
 Terminal Chess is a terminal version of the popular game chess, coded in Ruby.
 
   ![chess-gif](code-screenshots/chess.gif)
-  
+
+## Instructions
+-  Clone the Repo.
+-  Type in `pry` in your terminal.
+-  Type `load 'game.rb'`.
+-  Type `Game.new.play`.
+-  I suggest zooming in for maximum playing pleasure!
+
 ## Features
 - User friendly color-highlighting of possible moves.
 - Move pieces based on the established rules of the game.

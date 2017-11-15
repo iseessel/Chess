@@ -53,14 +53,14 @@ class King < Piece
     #This will be taken care of through the valid_moves method.
 
   def able_to_left_castle
-    debugger
+
     left_rook = @board[[@position[0], @position[1] - 4]]
     !@already_moved && !in_line_of_attack?([0, 2]) &&
       !left_rook.already_moved
   end
 
   def able_to_right_castle
-    debugger
+
     right_rook = @board[[@position[0], @position[1] + 3]]
     !@already_moved && !in_line_of_attack?([0, 2]) &&
       !right_rook.already_moved

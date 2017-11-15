@@ -13,6 +13,10 @@ class Game
   end
 
   def play
+    system('clear')
+    puts "Use your arrow buttons to move your cursor."
+    puts "Press enter to select your starting/ending move."
+    sleep(4)
     until @board.check_mate?(@current_player.color)
       begin
       @display.current_color = @current_player.color
