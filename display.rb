@@ -29,6 +29,8 @@ class Display
     end
   end
 
+  private
+  
   def colors(pos, moves, selected_piece, piece)
     if pos == @selected_piece || pos == @cursor.cursor_pos
       print " #{piece.to_s} ".colorize(background: :red)
