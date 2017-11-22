@@ -14,6 +14,7 @@ class Game
 
   def play
     system('clear')
+    puts "Zoom in for optimal gameplay."
     puts "Use your arrow buttons to move your cursor."
     puts "Press enter to select your starting/ending move."
     sleep(4)

@@ -1,16 +1,13 @@
 # README
 
 ## Overview
-Terminal Chess is a terminal version of the popular game chess, coded in Ruby.
+Chess is a terminal version of the popular game chess, coded in Ruby.
 
   ![chess-gif](code-screenshots/chess.gif)
 
 ## Instructions
 -  Clone the Repo.
--  Type in `pry` in your terminal.
--  Type `load 'game.rb'`.
--  Type `Game.new.play`.
--  I suggest zooming in for maximum playing pleasure!
+-  In the root-directory in terminal, type 'ruby chess.rb.'
 
 ## Features
 - User friendly color-highlighting of possible moves.
@@ -19,10 +16,10 @@ Terminal Chess is a terminal version of the popular game chess, coded in Ruby.
 - Check and checkmate capabilities.
 - Implementation of special moves, such as castling.
 
-## Object Orientatin Highlights
+## Object Orientation Highlights
 
-### Slideable and Steppable Moduels for Dry and Extensible Code.
-Each slideable/stepable piece responds with its own move directions or steps respectively, and through this the stepable modules dynamically generates a piece's valid move.
+### Slidable and Stepable Modules for Dry and Extensible Code.
+Each slidable/stepable piece responds with its own move directions or steps respectively, and through this the stepable modules dynamically generates a piece's valid move.
 This implementation allows for a standardized, easy to read approach to the complicated rules of chess.
 
   ![slideabble](code-screenshots/slideable.png)
