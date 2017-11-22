@@ -54,7 +54,7 @@ class Board
         self[finish] = Queen.new("\u2655")
         self[finish].position = finish
         self[finish].board = self
-        self.color = :white
+        self[finish].color = :white
       end
     elsif piece.instance_of? BlackPawn
       if finish[0] == 7
@@ -64,7 +64,7 @@ class Board
         self[finish].color = :black
       end
     end
-    
+
   end
 
   def move_piece!(start, finish)
