@@ -14,6 +14,7 @@ class Piece
   end
 
   def valid_moves
+
     moves = self.moves
     valid_moves = []
 

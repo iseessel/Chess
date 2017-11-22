@@ -1,4 +1,5 @@
 require_relative 'pieces/entry'
+require_relative 'pieces/pawn'
 
 class InvalidEndPosition < StandardError
 end
@@ -35,6 +36,7 @@ class Board
     raise InvalidMoveError unless valid_moves.include?(finish) &&
       piece.color == color && start != finish
 
+    #handling castling
     if piece.instance_of? King
       if finish[1] - start[1] == 2
         piece.castle(:right)
@@ -45,8 +47,24 @@ class Board
       end
     end
 
-    move_piece!(start, finish)
     piece.already_moved = true
+    move_piece!(start, finish)
+    if piece.instance_of? WhitePawn
+      if finish[0] == 0
+        self[finish] = Queen.new("\u2655")
+        self[finish].position = finish
+        self[finish].board = self
+        self.color = :white
+      end
+    elsif piece.instance_of? BlackPawn
+      if finish[0] == 7
+        self[finish] = Queen.new("\u265B")
+        self[finish].position = finish
+        self[finish].board = self
+        self[finish].color = :black
+      end
+    end
+    
   end
 
   def move_piece!(start, finish)

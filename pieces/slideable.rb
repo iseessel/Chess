@@ -8,17 +8,19 @@ module Slideable
     direction = self.move_dirs
 
     moves = []
-
+    ;
     moves += find_moves(DIAGONAL) if direction.include?(:diagonal)
-    moves += find_moves(STRAIGHT) if direction.include?(:straight )
+    moves += find_moves(STRAIGHT) if direction.include?(:straight)
 
     moves
   end
 
   def find_moves(deltas)
     moves = []
+
     deltas.each do |(dx, dy)|
       x, y = self.position
+
       next_move = [x + dx, y + dy]
       until !self.board.valid_move?(self.position, next_move)
         moves << next_move

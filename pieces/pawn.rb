@@ -17,8 +17,11 @@ class Pawn < Piece
 
       if valid_pawn_step?(move)
         moves << move
+      else
+        break
       end
     end
+
     moves
   end
 
@@ -37,12 +40,6 @@ class Pawn < Piece
 
     #makes sure that if a pawn moves forward one space, that he cannot move
     #forward two.
-    if(moves.include?([-2, 0]) && !moves.include?([-1, 0]) ||
-      moves.include?([2, 0]) && !moves.include?([1, 0]))
-      moves.delete([1, 0])
-      moves.delete([-1, 0])
-    end
-
     moves
   end
 

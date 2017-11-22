@@ -19,18 +19,18 @@ class Game
     puts "Press enter to select your starting/ending move."
     sleep(4)
     until @board.check_mate?(@current_player.color)
-      begin
+      # begin
       @display.current_color = @current_player.color
       start_pos, end_pos = @current_player.get_input
       @board.move_piece(start_pos, end_pos, @current_player.color)
       @display.selected_pos = nil
       switch_players
-      rescue
+      # rescue
         print "Invalid Move"
         @display.selected_pos = nil
         sleep(1)
-        retry
-      end
+        # retry
+      # end
     end
   end
 
